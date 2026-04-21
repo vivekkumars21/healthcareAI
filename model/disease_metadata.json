@@ -1,0 +1,1342 @@
+{
+  "Fungal infection": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "itching": 0.9,
+      "skin_rash": 0.9,
+      "nodal_skin_eruptions": 0.9,
+      "dischromic _patches": 0.9
+    },
+    "source": "primary"
+  },
+  "Allergy": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "continuous_sneezing": 0.9,
+      "shivering": 0.9,
+      "chills": 0.9,
+      "watering_from_eyes": 0.9
+    },
+    "source": "primary"
+  },
+  "GERD": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "stomach_pain": 0.95,
+      "acidity": 0.9,
+      "ulcers_on_tongue": 0.9,
+      "vomiting": 0.9,
+      "cough": 0.95,
+      "chest_pain": 0.95
+    },
+    "source": "primary"
+  },
+  "Chronic cholestasis": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "itching": 0.95,
+      "vomiting": 0.95,
+      "yellowish_skin": 0.95,
+      "nausea": 0.95,
+      "loss_of_appetite": 0.95,
+      "abdominal_pain": 0.95,
+      "yellowing_of_eyes": 0.95
+    },
+    "source": "primary"
+  },
+  "Drug Reaction": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "itching": 0.95,
+      "skin_rash": 0.9,
+      "stomach_pain": 0.9,
+      "burning_micturition": 0.9,
+      "spotting_ urination": 0.9
+    },
+    "source": "primary"
+  },
+  "Peptic ulcer diseae": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "vomiting": 0.95,
+      "indigestion": 0.9,
+      "loss_of_appetite": 0.9,
+      "abdominal_pain": 0.95,
+      "passage_of_gases": 0.95,
+      "internal_itching": 0.95
+    },
+    "source": "primary"
+  },
+  "AIDS": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "muscle_wasting": 0.9,
+      "patches_in_throat": 0.9,
+      "high_fever": 0.95,
+      "extra_marital_contacts": 0.9
+    },
+    "source": "primary"
+  },
+  "Diabetes": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "fatigue": 0.95,
+      "weight_loss": 0.95,
+      "restlessness": 0.95,
+      "lethargy": 0.95,
+      "irregular_sugar_level": 0.95,
+      "blurred_and_distorted_vision": 0.95,
+      "obesity": 0.95,
+      "excessive_hunger": 0.95,
+      "increased_appetite": 1.0,
+      "polyuria": 1.0
+    },
+    "source": "primary",
+    "avg_age": 47.4,
+    "common_gender": "Male",
+    "secondary_sample_count": 10,
+    "positive_rate": 0.5
+  },
+  "Gastroenteritis": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "vomiting": 0.9,
+      "sunken_eyes": 0.9,
+      "dehydration": 0.9,
+      "diarrhoea": 0.95
+    },
+    "source": "primary",
+    "avg_age": 37.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 6,
+    "positive_rate": 0.5
+  },
+  "Bronchial Asthma": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "fatigue": 0.9,
+      "cough": 0.9,
+      "high_fever": 0.95,
+      "breathlessness": 0.95,
+      "family_history": 0.95,
+      "mucoid_sputum": 0.95
+    },
+    "source": "primary"
+  },
+  "Hypertension": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "headache": 0.9,
+      "chest_pain": 0.9,
+      "dizziness": 0.9,
+      "loss_of_balance": 0.95,
+      "lack_of_concentration": 0.95
+    },
+    "source": "primary",
+    "avg_age": 52.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 10,
+    "positive_rate": 0.5
+  },
+  "Migraine": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "acidity": 0.95,
+      "indigestion": 0.95,
+      "headache": 0.95,
+      "blurred_and_distorted_vision": 0.95,
+      "excessive_hunger": 0.95,
+      "stiff_neck": 0.95,
+      "depression": 0.95,
+      "irritability": 0.95,
+      "visual_disturbances": 0.95
+    },
+    "source": "primary",
+    "avg_age": 41.1,
+    "common_gender": "Female",
+    "secondary_sample_count": 10,
+    "positive_rate": 0.5
+  },
+  "Cervical spondylosis": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "back_pain": 0.9,
+      "weakness_in_limbs": 0.9,
+      "neck_pain": 0.95,
+      "dizziness": 0.95,
+      "loss_of_balance": 0.95
+    },
+    "source": "primary"
+  },
+  "Paralysis (brain hemorrhage)": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "vomiting": 0.9,
+      "headache": 0.9,
+      "weakness_of_one_body_side": 0.9,
+      "altered_sensorium": 0.95
+    },
+    "source": "primary"
+  },
+  "Jaundice": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "itching": 0.95,
+      "vomiting": 0.95,
+      "fatigue": 0.95,
+      "weight_loss": 0.95,
+      "high_fever": 0.95,
+      "yellowish_skin": 0.95,
+      "dark_urine": 0.95,
+      "abdominal_pain": 0.95
+    },
+    "source": "primary"
+  },
+  "Malaria": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "chills": 0.95,
+      "vomiting": 0.95,
+      "high_fever": 0.95,
+      "sweating": 0.95,
+      "headache": 0.95,
+      "nausea": 0.95,
+      "diarrhoea": 0.9,
+      "muscle_pain": 1.0
+    },
+    "source": "primary",
+    "avg_age": 35.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 2,
+    "positive_rate": 1.0
+  },
+  "Chicken pox": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "itching": 0.95,
+      "skin_rash": 0.95,
+      "fatigue": 0.95,
+      "lethargy": 0.95,
+      "high_fever": 0.95,
+      "headache": 0.95,
+      "loss_of_appetite": 0.95,
+      "mild_fever": 0.95,
+      "swelled_lymph_nodes": 0.95,
+      "malaise": 1.0,
+      "red_spots_over_body": 1.0
+    },
+    "source": "primary"
+  },
+  "Dengue": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "skin_rash": 0.95,
+      "chills": 0.95,
+      "joint_pain": 0.95,
+      "vomiting": 0.95,
+      "fatigue": 0.95,
+      "high_fever": 0.95,
+      "headache": 1.0,
+      "nausea": 1.0,
+      "loss_of_appetite": 1.0,
+      "pain_behind_the_eyes": 1.0,
+      "back_pain": 1.0,
+      "malaise": 0.95,
+      "muscle_pain": 0.95,
+      "red_spots_over_body": 0.95
+    },
+    "source": "primary"
+  },
+  "Typhoid": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "chills": 1.0,
+      "vomiting": 0.95,
+      "fatigue": 1.0,
+      "high_fever": 1.0,
+      "headache": 0.95,
+      "nausea": 0.95,
+      "constipation": 0.95,
+      "abdominal_pain": 0.95,
+      "diarrhoea": 0.95,
+      "toxic_look_(typhos)": 0.95,
+      "belly_pain": 0.95
+    },
+    "source": "primary"
+  },
+  "hepatitis A": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "joint_pain": 0.95,
+      "vomiting": 0.95,
+      "yellowish_skin": 0.95,
+      "dark_urine": 0.95,
+      "nausea": 0.95,
+      "loss_of_appetite": 0.95,
+      "abdominal_pain": 0.95,
+      "diarrhoea": 0.95,
+      "mild_fever": 1.0,
+      "yellowing_of_eyes": 1.0,
+      "muscle_pain": 1.0
+    },
+    "source": "primary"
+  },
+  "Hepatitis B": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "itching": 0.95,
+      "fatigue": 0.95,
+      "lethargy": 0.95,
+      "yellowish_skin": 0.95,
+      "dark_urine": 0.95,
+      "loss_of_appetite": 0.95,
+      "abdominal_pain": 0.95,
+      "yellow_urine": 0.95,
+      "yellowing_of_eyes": 1.0,
+      "malaise": 1.0,
+      "receiving_blood_transfusion": 1.0,
+      "receiving_unsterile_injections": 1.0
+    },
+    "source": "primary",
+    "avg_age": 60.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 2,
+    "positive_rate": 1.0
+  },
+  "Hepatitis C": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "fatigue": 0.95,
+      "yellowish_skin": 0.95,
+      "nausea": 0.95,
+      "loss_of_appetite": 0.95,
+      "yellowing_of_eyes": 0.9,
+      "family_history": 0.95
+    },
+    "source": "primary"
+  },
+  "Hepatitis D": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "joint_pain": 0.95,
+      "vomiting": 0.95,
+      "fatigue": 0.95,
+      "yellowish_skin": 0.95,
+      "dark_urine": 0.95,
+      "nausea": 0.95,
+      "loss_of_appetite": 0.95,
+      "abdominal_pain": 0.95,
+      "yellowing_of_eyes": 0.95
+    },
+    "source": "primary"
+  },
+  "Hepatitis E": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "joint_pain": 0.95,
+      "vomiting": 0.95,
+      "fatigue": 0.95,
+      "high_fever": 0.95,
+      "yellowish_skin": 0.95,
+      "dark_urine": 0.95,
+      "nausea": 0.95,
+      "loss_of_appetite": 1.0,
+      "abdominal_pain": 1.0,
+      "yellowing_of_eyes": 1.0,
+      "acute_liver_failure": 0.95,
+      "coma": 1.0,
+      "stomach_bleeding": 1.0
+    },
+    "source": "primary"
+  },
+  "Alcoholic hepatitis": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "vomiting": 0.95,
+      "yellowish_skin": 0.95,
+      "abdominal_pain": 0.95,
+      "swelling_of_stomach": 0.95,
+      "distention_of_abdomen": 0.95,
+      "history_of_alcohol_consumption": 0.95,
+      "fluid_overload.1": 0.95
+    },
+    "source": "primary"
+  },
+  "Corona": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "chills": 0.95,
+      "vomiting": 0.95,
+      "fatigue": 0.95,
+      "weight_loss": 0.95,
+      "cough": 0.95,
+      "high_fever": 0.95,
+      "breathlessness": 0.95,
+      "sweating": 0.95,
+      "loss_of_appetite": 1.0,
+      "mild_fever": 1.0,
+      "yellowing_of_eyes": 1.0,
+      "swelled_lymph_nodes": 1.0,
+      "malaise": 1.0,
+      "phlegm": 1.0,
+      "chest_pain": 1.0,
+      "blood_in_sputum": 1.0
+    },
+    "source": "primary"
+  },
+  "Common Cold": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "continuous_sneezing": 0.95,
+      "chills": 0.95,
+      "fatigue": 0.95,
+      "cough": 0.95,
+      "high_fever": 0.95,
+      "headache": 0.95,
+      "swelled_lymph_nodes": 0.95,
+      "malaise": 0.95,
+      "phlegm": 1.0,
+      "throat_irritation": 1.0,
+      "redness_of_eyes": 1.0,
+      "sinus_pressure": 1.0,
+      "runny_nose": 1.0,
+      "congestion": 1.0,
+      "chest_pain": 1.0,
+      "loss_of_smell": 1.0,
+      "muscle_pain": 1.0
+    },
+    "source": "primary",
+    "avg_age": 36.2,
+    "common_gender": "Female",
+    "secondary_sample_count": 6,
+    "positive_rate": 0.16666666666666666
+  },
+  "Pneumonia": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "chills": 0.95,
+      "fatigue": 0.95,
+      "cough": 0.95,
+      "high_fever": 0.95,
+      "breathlessness": 0.95,
+      "sweating": 0.95,
+      "malaise": 0.95,
+      "phlegm": 0.95,
+      "chest_pain": 1.0,
+      "fast_heart_rate": 1.0,
+      "rusty_sputum": 1.0
+    },
+    "source": "primary",
+    "avg_age": 40.6,
+    "common_gender": "Female",
+    "secondary_sample_count": 8,
+    "positive_rate": 0.625
+  },
+  "Dimorphic hemmorhoids(piles)": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "constipation": 0.95,
+      "pain_during_bowel_movements": 0.95,
+      "pain_in_anal_region": 0.95,
+      "bloody_stool": 0.95,
+      "irritation_in_anus": 0.95
+    },
+    "source": "primary"
+  },
+  "Heart attack": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "vomiting": 0.9,
+      "breathlessness": 0.9,
+      "sweating": 0.9,
+      "chest_pain": 0.95
+    },
+    "source": "primary"
+  },
+  "Varicose veins": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "fatigue": 0.95,
+      "cramps": 0.95,
+      "bruising": 0.95,
+      "obesity": 0.95,
+      "swollen_legs": 0.95,
+      "swollen_blood_vessels": 0.9,
+      "prominent_veins_on_calf": 0.95
+    },
+    "source": "primary"
+  },
+  "Hypothyroidism": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "fatigue": 0.9,
+      "weight_gain": 0.95,
+      "cold_hands_and_feets": 0.95,
+      "mood_swings": 0.95,
+      "lethargy": 0.95,
+      "dizziness": 0.95,
+      "puffy_face_and_eyes": 0.95,
+      "enlarged_thyroid": 1.0,
+      "brittle_nails": 1.0,
+      "swollen_extremeties": 1.0,
+      "depression": 1.0,
+      "irritability": 1.0,
+      "abnormal_menstruation": 1.0
+    },
+    "source": "primary",
+    "avg_age": 47.1,
+    "common_gender": "Female",
+    "secondary_sample_count": 7,
+    "positive_rate": 0.5714285714285714
+  },
+  "Hyperthyroidism": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "fatigue": 0.95,
+      "mood_swings": 0.95,
+      "weight_loss": 0.95,
+      "restlessness": 0.95,
+      "sweating": 0.95,
+      "diarrhoea": 0.95,
+      "fast_heart_rate": 0.95,
+      "excessive_hunger": 0.95,
+      "muscle_weakness": 1.0,
+      "irritability": 1.0,
+      "abnormal_menstruation": 1.0
+    },
+    "source": "primary",
+    "avg_age": 37.3,
+    "common_gender": "Male",
+    "secondary_sample_count": 7,
+    "positive_rate": 0.42857142857142855
+  },
+  "Hypoglycemia": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "vomiting": 0.95,
+      "fatigue": 0.95,
+      "anxiety": 0.95,
+      "sweating": 0.95,
+      "headache": 0.95,
+      "nausea": 0.95,
+      "blurred_and_distorted_vision": 0.95,
+      "excessive_hunger": 1.0,
+      "drying_and_tingling_lips": 0.95,
+      "slurred_speech": 1.0,
+      "irritability": 1.0,
+      "palpitations": 1.0
+    },
+    "source": "primary",
+    "avg_age": 40.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0
+  },
+  "Osteoarthristis": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "joint_pain": 0.95,
+      "neck_pain": 0.95,
+      "knee_pain": 0.95,
+      "hip_joint_pain": 0.95,
+      "swelling_joints": 0.95,
+      "painful_walking": 0.95
+    },
+    "source": "primary"
+  },
+  "Arthritis": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "muscle_weakness": 0.95,
+      "stiff_neck": 0.95,
+      "swelling_joints": 0.95,
+      "movement_stiffness": 0.95,
+      "painful_walking": 0.95
+    },
+    "source": "primary"
+  },
+  "(vertigo) Paroymsal  Positional Vertigo": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "vomiting": 0.95,
+      "headache": 0.95,
+      "nausea": 0.95,
+      "spinning_movements": 0.9,
+      "loss_of_balance": 0.95,
+      "unsteadiness": 0.95
+    },
+    "source": "primary"
+  },
+  "Acne": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "skin_rash": 0.95,
+      "pus_filled_pimples": 0.9,
+      "blackheads": 0.9,
+      "scurring": 0.9
+    },
+    "source": "primary",
+    "avg_age": 40.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0
+  },
+  "Urinary tract infection": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "burning_micturition": 0.9,
+      "bladder_discomfort": 0.95,
+      "foul_smell_of urine": 0.85,
+      "continuous_feel_of_urine": 0.95
+    },
+    "source": "primary"
+  },
+  "Psoriasis": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "skin_rash": 0.95,
+      "joint_pain": 0.95,
+      "skin_peeling": 0.95,
+      "silver_like_dusting": 0.95,
+      "small_dents_in_nails": 0.95,
+      "inflammatory_nails": 0.95
+    },
+    "source": "primary",
+    "avg_age": 38.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 5,
+    "positive_rate": 0.6
+  },
+  "Impetigo": {
+    "sample_count": 120,
+    "key_symptoms": {
+      "skin_rash": 0.95,
+      "high_fever": 0.85,
+      "blister": 0.95,
+      "red_sore_around_nose": 0.95,
+      "yellow_crust_ooze": 0.95
+    },
+    "source": "primary"
+  },
+  "Influenza": {
+    "avg_age": 33.1,
+    "common_gender": "Female",
+    "secondary_sample_count": 8,
+    "positive_rate": 0.75,
+    "source": "secondary"
+  },
+  "Eczema": {
+    "avg_age": 32.5,
+    "common_gender": "Female",
+    "secondary_sample_count": 6,
+    "positive_rate": 0.5,
+    "source": "secondary"
+  },
+  "Asthma": {
+    "avg_age": 36.9,
+    "common_gender": "Male",
+    "secondary_sample_count": 23,
+    "positive_rate": 0.782608695652174,
+    "source": "secondary"
+  },
+  "Allergic Rhinitis": {
+    "avg_age": 40.3,
+    "common_gender": "Female",
+    "secondary_sample_count": 6,
+    "positive_rate": 0.16666666666666666,
+    "source": "secondary"
+  },
+  "Anxiety Disorders": {
+    "avg_age": 43.2,
+    "common_gender": "Male",
+    "secondary_sample_count": 6,
+    "positive_rate": 0.5,
+    "source": "secondary"
+  },
+  "Pancreatitis": {
+    "avg_age": 43.8,
+    "common_gender": "Male",
+    "secondary_sample_count": 5,
+    "positive_rate": 0.4,
+    "source": "secondary"
+  },
+  "Rheumatoid Arthritis": {
+    "avg_age": 42.3,
+    "common_gender": "Female",
+    "secondary_sample_count": 6,
+    "positive_rate": 0.5,
+    "source": "secondary"
+  },
+  "Depression": {
+    "avg_age": 39.8,
+    "common_gender": "Female",
+    "secondary_sample_count": 6,
+    "positive_rate": 0.5,
+    "source": "secondary"
+  },
+  "Liver Cancer": {
+    "avg_age": 43.2,
+    "common_gender": "Female",
+    "secondary_sample_count": 6,
+    "positive_rate": 0.6666666666666666,
+    "source": "secondary"
+  },
+  "Stroke": {
+    "avg_age": 65.6,
+    "common_gender": "Female",
+    "secondary_sample_count": 16,
+    "positive_rate": 0.6875,
+    "source": "secondary"
+  },
+  "Urinary Tract Infection": {
+    "avg_age": 40.2,
+    "common_gender": "Female",
+    "secondary_sample_count": 5,
+    "positive_rate": 0.4,
+    "source": "secondary"
+  },
+  "Dengue Fever": {
+    "avg_age": 30.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 2,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Hepatitis": {
+    "avg_age": 40.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 3,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Kidney Cancer": {
+    "avg_age": 43.7,
+    "common_gender": "Male",
+    "secondary_sample_count": 6,
+    "positive_rate": 0.3333333333333333,
+    "source": "secondary"
+  },
+  "Muscular Dystrophy": {
+    "avg_age": 30.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Sinusitis": {
+    "avg_age": 30.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Ulcerative Colitis": {
+    "avg_age": 36.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 5,
+    "positive_rate": 0.6,
+    "source": "secondary"
+  },
+  "Bipolar Disorder": {
+    "avg_age": 30.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Bronchitis": {
+    "avg_age": 44.4,
+    "common_gender": "Male",
+    "secondary_sample_count": 8,
+    "positive_rate": 0.625,
+    "source": "secondary"
+  },
+  "Cerebral Palsy": {
+    "avg_age": 30.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Colorectal Cancer": {
+    "avg_age": 30.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Hypertensive Heart Disease": {
+    "avg_age": 30.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Multiple Sclerosis": {
+    "avg_age": 44.8,
+    "common_gender": "Female",
+    "secondary_sample_count": 5,
+    "positive_rate": 0.6,
+    "source": "secondary"
+  },
+  "Myocardial Infarction (Heart...": {
+    "avg_age": 30.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Urinary Tract Infection (UTI)": {
+    "avg_age": 43.3,
+    "common_gender": "Male",
+    "secondary_sample_count": 3,
+    "positive_rate": 0.3333333333333333,
+    "source": "secondary"
+  },
+  "Osteoporosis": {
+    "avg_age": 54.6,
+    "common_gender": "Male",
+    "secondary_sample_count": 14,
+    "positive_rate": 0.5,
+    "source": "secondary"
+  },
+  "Atherosclerosis": {
+    "avg_age": 35.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Chronic Obstructive Pulmonary...": {
+    "avg_age": 35.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Epilepsy": {
+    "avg_age": 35.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Obsessive-Compulsive Disorde...": {
+    "avg_age": 35.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Rubella": {
+    "avg_age": 35.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 2,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Cirrhosis": {
+    "avg_age": 35.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Conjunctivitis (Pink Eye)": {
+    "avg_age": 35.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Liver Disease": {
+    "avg_age": 43.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 5,
+    "positive_rate": 0.4,
+    "source": "secondary"
+  },
+  "Spina Bifida": {
+    "avg_age": 35.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Kidney Disease": {
+    "avg_age": 47.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 5,
+    "positive_rate": 0.4,
+    "source": "secondary"
+  },
+  "Osteoarthritis": {
+    "avg_age": 46.7,
+    "common_gender": "Male",
+    "secondary_sample_count": 6,
+    "positive_rate": 0.5,
+    "source": "secondary"
+  },
+  "Klinefelter Syndrome": {
+    "avg_age": 44.5,
+    "common_gender": "Female",
+    "secondary_sample_count": 2,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Brain Tumor": {
+    "avg_age": 40.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Cystic Fibrosis": {
+    "avg_age": 40.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Glaucoma": {
+    "avg_age": 40.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Rabies": {
+    "avg_age": 40.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 2,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Chickenpox": {
+    "avg_age": 40.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 2,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Coronary Artery Disease": {
+    "avg_age": 54.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 5,
+    "positive_rate": 0.6,
+    "source": "secondary"
+  },
+  "Eating Disorders (Anorexia,...": {
+    "avg_age": 40.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Fibromyalgia": {
+    "avg_age": 40.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Hemophilia": {
+    "avg_age": 50.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 2,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Lymphoma": {
+    "avg_age": 40.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Tuberculosis": {
+    "avg_age": 46.7,
+    "common_gender": "Male",
+    "secondary_sample_count": 3,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Lung Cancer": {
+    "avg_age": 57.3,
+    "common_gender": "Female",
+    "secondary_sample_count": 3,
+    "positive_rate": 0.6666666666666666,
+    "source": "secondary"
+  },
+  "Autism Spectrum Disorder (ASD)": {
+    "avg_age": 45.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Crohn's Disease": {
+    "avg_age": 47.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 5,
+    "positive_rate": 0.4,
+    "source": "secondary"
+  },
+  "Hyperglycemia": {
+    "avg_age": 45.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Melanoma": {
+    "avg_age": 45.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Ovarian Cancer": {
+    "avg_age": 45.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Turner Syndrome": {
+    "avg_age": 45.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 2,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Zika Virus": {
+    "avg_age": 45.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 2,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Cataracts": {
+    "avg_age": 45.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Pneumocystis Pneumonia (PCP)": {
+    "avg_age": 45.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Scoliosis": {
+    "avg_age": 45.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Sickle Cell Anemia": {
+    "avg_age": 45.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Tetanus": {
+    "avg_age": 45.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 2,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Anemia": {
+    "avg_age": 50.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Cholera": {
+    "avg_age": 50.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 2,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Endometriosis": {
+    "avg_age": 50.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Sepsis": {
+    "avg_age": 50.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Sleep Apnea": {
+    "avg_age": 50.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Down Syndrome": {
+    "avg_age": 50.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Ebola Virus": {
+    "avg_age": 50.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 2,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Lyme Disease": {
+    "avg_age": 50.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 2,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Pancreatic Cancer": {
+    "avg_age": 50.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Pneumothorax": {
+    "avg_age": 50.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Appendicitis": {
+    "avg_age": 55.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Esophageal Cancer": {
+    "avg_age": 55.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "HIV/AIDS": {
+    "avg_age": 55.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 2,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Marfan Syndrome": {
+    "avg_age": 55.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Parkinson's Disease": {
+    "avg_age": 60.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 5,
+    "positive_rate": 0.4,
+    "source": "secondary"
+  },
+  "Hemorrhoids": {
+    "avg_age": 55.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Polycystic Ovary Syndrome (PCOS)": {
+    "avg_age": 55.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Systemic Lupus Erythematosus...": {
+    "avg_age": 55.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Typhoid Fever": {
+    "avg_age": 55.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 2,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Breast Cancer": {
+    "avg_age": 60.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Measles": {
+    "avg_age": 60.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 2,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Osteomyelitis": {
+    "avg_age": 60.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Polio": {
+    "avg_age": 60.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Chronic Kidney Disease": {
+    "avg_age": 60.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Prader-Willi Syndrome": {
+    "avg_age": 60.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Thyroid Cancer": {
+    "avg_age": 60.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Bladder Cancer": {
+    "avg_age": 65.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Otitis Media (Ear Infection)": {
+    "avg_age": 65.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Tourette Syndrome": {
+    "avg_age": 65.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Alzheimer's Disease": {
+    "avg_age": 67.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 5,
+    "positive_rate": 0.6,
+    "source": "secondary"
+  },
+  "Chronic Obstructive Pulmonary Disease (COPD)": {
+    "avg_age": 67.5,
+    "common_gender": "Female",
+    "secondary_sample_count": 4,
+    "positive_rate": 0.5,
+    "source": "secondary"
+  },
+  "Dementia": {
+    "avg_age": 65.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Diverticulitis": {
+    "avg_age": 65.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Mumps": {
+    "avg_age": 65.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 2,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Cholecystitis": {
+    "avg_age": 70.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Prostate Cancer": {
+    "avg_age": 70.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Schizophrenia": {
+    "avg_age": 70.0,
+    "common_gender": "Male",
+    "secondary_sample_count": 1,
+    "positive_rate": 0.0,
+    "source": "secondary"
+  },
+  "Gout": {
+    "avg_age": 70.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Testicular Cancer": {
+    "avg_age": 70.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Tonsillitis": {
+    "avg_age": 70.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  },
+  "Williams Syndrome": {
+    "avg_age": 70.0,
+    "common_gender": "Female",
+    "secondary_sample_count": 1,
+    "positive_rate": 1.0,
+    "source": "secondary"
+  }
+}
