@@ -4,348 +4,546 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="AI-powered Disease & Symptom Prediction tool with Doctor Finder. Get instant health insights based on your symptoms using machine learning.">
-    <title>MediPredict AI — Disease & Symptom Prediction</title>
+    <title>HealthCare AI — Disease & Symptom Prediction</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
 </head>
 <body>
-    <!-- ════════════════════════════ GLOBAL BACKGROUND ════════════════════════════ -->
-    <div class="site-bg" aria-hidden="true">
-        <div class="site-bg-grid"></div>
-        <div class="bg-orb orb-1"></div>
-        <div class="bg-orb orb-2"></div>
-        <div class="bg-orb orb-3"></div>
-        <div class="bg-orb orb-4"></div>
-        <div class="bg-orb orb-5"></div>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- AMBIENT ORBS -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<!-- 3D CANVAS -->
+<canvas id="canvas3d"></canvas>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
+
+<!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="#hero" class="nav-logo" id="nav-logo-link">
+            <div class="logo-icon">🩺</div>
+            <span class="logo-text">HealthCare<span class="logo-accent"> AI</span></span>
+        </a>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#hero" class="nav-link active" data-section="hero">Home</a></li>
+            <li><a href="#checker" class="nav-link" data-section="checker">Symptom Checker</a></li>
+            <li><a href="#encyclopedia" class="nav-link" data-section="encyclopedia">Diseases</a></li>
+            <li><a href="#doctor-finder" class="nav-link" data-section="doctor-finder">Find Doctors</a></li>
+        </ul>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-user">
+            <span class="nav-user-name">{{ session.get('user_name', '') }}</span>
+            <a href="{{ url_for('logout') }}" class="btn-logout">Sign Out</a>
+        </div>
     </div>
-    <!-- ═══════════════════════ SCROLL PROGRESS ═══════════════════════ -->
-    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
-    <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo" id="nav-logo-link">
-                <span class="logo-icon">🩺</span>
-                <span class="logo-text">Medi<span class="logo-accent">Predict</span> AI</span>
-            </a>
-            <div class="nav-links" id="nav-links">
-                <a href="#hero" class="nav-link active" data-section="hero">Home</a>
-                <a href="#checker" class="nav-link" data-section="checker">Symptom Checker</a>
-                <a href="#encyclopedia" class="nav-link" data-section="encyclopedia">Diseases</a>
-                <a href="#doctor-finder" class="nav-link" data-section="doctor-finder">Find Doctors</a>
+</nav>
+
+<!-- ═══════════════════════ HERO SECTION ═══════════════════════ -->
+<section class="hero-section" id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-particles" id="hero-particles"></div>
+    <div class="hero-container">
+        <div class="hero-badge">
+            <span class="badge-pulse"></span>
+            <span>AI-Powered Health Analysis</span>
+        </div>
+        <h1 class="hero-title">
+            Your Health,<br>
+            <span class="hero-gradient-text">Predicted Intelligently</span>
+        </h1>
+        <p class="hero-subtitle">
+            Select from 132 symptoms and let our Random Forest model analyze potential conditions,
+            severity levels, and connect you with the right specialists nearby.
+        </p>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number" id="stat-diseases" data-target="41">0</span>
+                <span class="stat-label">Diseases Tracked</span>
             </div>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
-                <span></span><span></span><span></span>
+            <div class="stat-item">
+                <span class="stat-number" id="stat-accuracy" data-target="100" data-suffix="%">0%</span>
+                <span class="stat-label">Model Accuracy</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="stat-symptoms" data-target="132">0</span>
+                <span class="stat-label">Symptoms Analyzed</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="stat-model">RF</span>
+                <span class="stat-label">ML Algorithm</span>
+            </div>
+        </div>
+        <div class="hero-actions">
+            <button class="btn btn-primary btn-glow" id="start-checker-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                <span>Start Symptom Check</span>
+            </button>
+            <button class="btn btn-secondary" id="browse-diseases-btn">
+                <span>Browse Diseases</span>
             </button>
         </div>
-    </nav>
+    </div>
+    <div class="hero-scroll-indicator" id="hero-scroll-indicator" role="button" tabindex="0" aria-label="Scroll to symptom checker">
+        <div class="scroll-mouse"><div class="scroll-dot"></div></div>
+        <span>SCROLL TO EXPLORE</span>
+    </div>
+</section>
 
-    <!-- ═══════════════════════ HERO SECTION ═══════════════════════ -->
-    <section class="hero-section" id="hero">
-        <div class="hero-bg-grid"></div>
-        <div class="hero-particles" id="hero-particles"></div>
-        <div class="hero-container">
-            <div class="hero-badge">
-                <span class="badge-pulse"></span>
-                <span>AI-Powered Health Analysis</span>
+<!-- ═══════════════════════ SYMPTOM CHECKER ═══════════════════════ -->
+<section class="section" id="checker">
+    <div class="section-container">
+        <div class="section-header">
+            <span class="section-tag">🔬 AI Diagnosis</span>
+            <h2 class="section-title">Symptom Checker</h2>
+            <p class="section-subtitle">Select your symptoms from 132 classified categories for an AI-powered analysis</p>
+        </div>
+
+        <!-- Step Indicator -->
+        <div class="stepper">
+            <div class="step active" data-step="1">
+                <div class="step-circle">1</div>
+                <span class="step-label">Symptoms</span>
             </div>
-            <h1 class="hero-title">
-                Your Health,<br>
-                <span class="hero-gradient-text">Predicted Intelligently</span>
-            </h1>
-            <p class="hero-subtitle">
-                Select from 132 symptoms and let our machine learning model analyze potential conditions,
-                severity levels, and connect you with the right specialists nearby.
-            </p>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number" id="stat-diseases">0</span>
-                    <span class="stat-label">Diseases Tracked</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number" id="stat-accuracy">0%</span>
-                    <span class="stat-label">Model Accuracy</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number" id="stat-symptoms">0</span>
-                    <span class="stat-label">Symptoms Analyzed</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number" id="stat-model">—</span>
-                    <span class="stat-label">ML Algorithm</span>
-                </div>
+            <div class="step-line"></div>
+            <div class="step" data-step="2">
+                <div class="step-circle">2</div>
+                <span class="step-label">Review</span>
             </div>
-            <div class="hero-actions">
-                <button class="btn btn-primary btn-glow" id="start-checker-btn">
-                    <span>Start Symptom Check</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </button>
-                <button class="btn btn-secondary" id="browse-diseases-btn">
-                    <span>Browse Diseases</span>
-                </button>
+            <div class="step-line"></div>
+            <div class="step" data-step="3">
+                <div class="step-circle">3</div>
+                <span class="step-label">Results</span>
             </div>
         </div>
-        <div class="hero-scroll-indicator" id="hero-scroll-indicator" role="button" tabindex="0" aria-label="Scroll to symptom checker">
-            <div class="scroll-mouse"><div class="scroll-dot"></div></div>
-            <span>Scroll to explore</span>
-        </div>
-    </section>
 
-    <!-- ═══════════════════════ SYMPTOM CHECKER ═══════════════════════ -->
-    <section class="section" id="checker">
-        <div class="section-container">
-            <div class="section-header">
-                <span class="section-tag">🔬 AI Diagnosis</span>
-                <h2 class="section-title">Symptom Checker</h2>
-                <p class="section-subtitle">Select your symptoms from 132 classified categories for an AI-powered analysis</p>
-            </div>
+        <!-- Step 1: Symptoms -->
+        <div class="checker-step" id="step-1">
+            <div class="glass-card">
+                <h3 class="card-title">
+                    <span class="card-icon">🩺</span>
+                    Select Your Symptoms
+                </h3>
+                <p class="card-desc">Search and select the symptoms you are currently experiencing</p>
 
-            <!-- Step Indicator -->
-            <div class="stepper">
-                <div class="step active" data-step="1">
-                    <div class="step-circle">1</div>
-                    <span class="step-label">Symptoms</span>
+                <div class="symptom-search-container">
+                    <div class="symptom-search-bar">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                        <input type="text" id="symptom-search" class="symptom-search-input" placeholder="Search symptoms (e.g., headache, fever, fatigue...)">
+                        <span class="symptom-count-badge" id="selected-count">0 selected</span>
+                    </div>
                 </div>
-                <div class="step-line"></div>
-                <div class="step" data-step="2">
-                    <div class="step-circle">2</div>
-                    <span class="step-label">Review</span>
-                </div>
-                <div class="step-line"></div>
-                <div class="step" data-step="3">
-                    <div class="step-circle">3</div>
-                    <span class="step-label">Results</span>
-                </div>
-            </div>
 
-            <!-- Step 1: Symptoms -->
-            <div class="checker-step" id="step-1">
-                <div class="card glass-card">
-                    <h3 class="card-title">
-                        <span class="card-icon">🩺</span>
-                        Select Your Symptoms
-                    </h3>
-                    <p class="card-desc">Search and select the symptoms you are currently experiencing</p>
+                <div class="selected-symptoms-container hidden" id="selected-symptoms-container">
+                    <div class="selected-symptoms-label">Selected Symptoms:</div>
+                    <div class="selected-symptoms-chips" id="selected-symptoms-chips"></div>
+                </div>
 
-                    <!-- Symptom Search Bar -->
-                    <div class="symptom-search-container">
-                        <div class="symptom-search-bar">
-                            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                            <input type="text" id="symptom-search" class="symptom-search-input" placeholder="Search symptoms (e.g., headache, fever, fatigue...)">
-                            <span class="symptom-count-badge" id="selected-count">0 selected</span>
+                <div class="symptom-category-tabs" id="symptom-category-tabs">
+                    <button class="symptom-tab active" data-group="all">All</button>
+                </div>
+
+                <div class="symptom-grid-wrapper">
+                    <div class="symptom-grid-dynamic" id="symptom-grid-dynamic">
+                        <div class="loading-state">
+                            <div class="loader"></div>
+                            <p>Loading symptoms...</p>
                         </div>
                     </div>
-
-                    <!-- Selected Symptoms Display -->
-                    <div class="selected-symptoms-container hidden" id="selected-symptoms-container">
-                        <div class="selected-symptoms-label">Selected Symptoms:</div>
-                        <div class="selected-symptoms-chips" id="selected-symptoms-chips"></div>
-                    </div>
-
-                    <!-- Body System Filter Tabs -->
-                    <div class="symptom-category-tabs" id="symptom-category-tabs">
-                        <button class="symptom-tab active" data-group="all">All</button>
-                    </div>
-
-                    <!-- Symptom Grid (Dynamically loaded) -->
-                    <div class="symptom-grid-wrapper">
-                        <div class="symptom-grid-dynamic" id="symptom-grid-dynamic">
-                            <div class="loading-state">
-                                <div class="loader"></div>
-                                <p>Loading symptoms...</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="step-actions">
-                        <div></div>
-                        <button class="btn btn-primary" id="to-step-2">
-                            <span>Next: Review & Analyze</span>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                        </button>
-                    </div>
                 </div>
-            </div>
 
-            <!-- Step 2: Review & Analyze -->
-            <div class="checker-step hidden" id="step-2">
-                <div class="card glass-card">
-                    <h3 class="card-title">
-                        <span class="card-icon">📋</span>
-                        Review & Analyze
-                    </h3>
-                    <p class="card-desc">Review your selected symptoms before running the analysis</p>
-
-                    <div class="review-symptoms-container" id="review-symptoms"></div>
-
-                    <div class="form-grid" style="margin-top: 1.5rem;">
-                        <div class="form-group">
-                            <label class="form-label" for="input-age">Age (Optional)</label>
-                            <input type="number" id="input-age" class="form-input" placeholder="Enter your age" min="1" max="120" value="30">
-                            <span class="form-hint">Years old</span>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="input-gender">Gender (Optional)</label>
-                            <select id="input-gender" class="form-input">
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="step-actions">
-                        <button class="btn btn-ghost" id="back-to-step-1">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                            <span>Back</span>
-                        </button>
-                        <button class="btn btn-primary btn-glow" id="predict-btn">
-                            <span class="btn-loader hidden" id="predict-loader"></span>
-                            <span id="predict-text">🔬 Analyze Symptoms</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 3: Results -->
-            <div class="checker-step hidden" id="step-3">
-                <!-- Results will be injected here by JS -->
-                <div id="results-container"></div>
-                <div class="step-actions" style="margin-top: 2rem;">
-                    <button class="btn btn-ghost" id="back-to-step-2">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                        <span>Modify Inputs</span>
-                    </button>
-                    <button class="btn btn-primary" id="new-check-btn">
-                        <span>🔄 New Check</span>
+                <div class="step-actions">
+                    <div></div>
+                    <button class="btn btn-primary" id="to-step-2">
+                        <span>Next: Review & Analyze</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- ═══════════════════════ DISEASE ENCYCLOPEDIA ═══════════════════════ -->
-    <section class="section section-alt" id="encyclopedia">
-        <div class="section-container">
-            <div class="section-header">
-                <span class="section-tag">📚 Knowledge Base</span>
-                <h2 class="section-title">Disease Encyclopedia</h2>
-                <p class="section-subtitle">Browse through our comprehensive database of 41 diseases and conditions</p>
-            </div>
+        <!-- Step 2: Review & Analyze -->
+        <div class="checker-step hidden" id="step-2">
+            <div class="glass-card">
+                <h3 class="card-title">
+                    <span class="card-icon">📋</span>
+                    Review & Analyze
+                </h3>
+                <p class="card-desc">Review your selected symptoms before running the analysis</p>
 
-            <div class="search-bar-container">
-                <div class="search-bar">
-                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                    <input type="text" id="disease-search" class="search-input" placeholder="Search diseases...">
-                </div>
-                <div class="filter-chips" id="category-filters">
-                    <button class="chip active" data-category="all">All</button>
-                </div>
-            </div>
+                <div class="review-symptoms-container" id="review-symptoms"></div>
 
-            <div class="disease-grid" id="disease-grid">
-                <div class="loading-state" id="disease-loading">
-                    <div class="loader"></div>
-                    <p>Loading diseases...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════════════ DOCTOR FINDER ═══════════════════════ -->
-    <section class="section" id="doctor-finder">
-        <div class="section-container">
-            <div class="section-header">
-                <span class="section-tag">📍 Nearby Care</span>
-                <h2 class="section-title">Find Doctors Near You</h2>
-                <p class="section-subtitle">Locate healthcare professionals and specialists in your area</p>
-            </div>
-
-            <div class="doctor-finder-content">
-                <div class="finder-controls">
+                <div class="form-grid" style="margin-top: 1.5rem;">
                     <div class="form-group">
-                        <label class="form-label" for="specialist-select">Select Specialist Type</label>
-                        <select id="specialist-select" class="form-input">
-                            <option value="hospital">🏥 Hospital / General</option>
-                            <option value="general physician">👨‍⚕️ General Physician</option>
-                            <option value="pulmonologist">🫁 Pulmonologist</option>
-                            <option value="cardiologist">❤️ Cardiologist</option>
-                            <option value="neurologist">🧠 Neurologist</option>
-                            <option value="dermatologist">🩹 Dermatologist</option>
-                            <option value="endocrinologist">💉 Endocrinologist</option>
-                            <option value="gastroenterologist">🤢 Gastroenterologist</option>
-                            <option value="hepatologist">🫁 Hepatologist</option>
-                            <option value="orthopedic">🦴 Orthopedic Specialist</option>
-                            <option value="rheumatologist">🦴 Rheumatologist</option>
-                            <option value="ent specialist">👂 ENT Specialist</option>
-                            <option value="urologist">🫘 Urologist</option>
-                            <option value="allergist">🤧 Allergist</option>
-                            <option value="infectious disease">🦠 Infectious Disease</option>
-                            <option value="vascular surgeon">❤️ Vascular Surgeon</option>
-                            <option value="general surgeon">🏥 General Surgeon</option>
+                        <label class="form-label" for="input-age">Age (Optional)</label>
+                        <input type="number" id="input-age" class="form-input" placeholder="Enter your age" min="1" max="120" value="30">
+                        <span class="form-hint">Years old</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="input-gender">Gender (Optional)</label>
+                        <select id="input-gender" class="form-input">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary btn-glow" id="find-doctors-btn">
-                        <span>📍 Find Nearby Doctors</span>
+                </div>
+
+                <div class="step-actions">
+                    <button class="btn btn-ghost" id="back-to-step-1">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                        <span>Back</span>
                     </button>
-                    <div class="location-info hidden" id="location-info">
-                        <span class="location-dot"></span>
-                        <span id="location-text">Location detected</span>
-                    </div>
-                </div>
-
-                <div class="map-container" id="map-container">
-                    <div class="map-placeholder" id="map-placeholder">
-                        <div class="map-placeholder-icon">🗺️</div>
-                        <p>Click "Find Nearby Doctors" to locate specialists near you</p>
-                        <span class="map-hint">Uses your browser's location services</span>
-                    </div>
-                    <iframe id="doctor-map" class="hidden" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <button class="btn btn-primary btn-glow" id="predict-btn">
+                        <span class="btn-loader hidden" id="predict-loader"></span>
+                        <span id="predict-text">🔬 Analyze Symptoms</span>
+                    </button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- ═══════════════════════ DISCLAIMER ═══════════════════════ -->
-    <section class="disclaimer-section">
-        <div class="section-container">
-            <div class="disclaimer-card">
-                <div class="disclaimer-icon">⚕️</div>
-                <h3>Medical Disclaimer</h3>
-                <p>This tool is for <strong>educational and informational purposes only</strong>. It is NOT a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions regarding a medical condition. Never disregard professional medical advice or delay seeking it because of something you have read or received from this application.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
-    <footer class="footer">
-        <div class="section-container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <span class="logo-icon">🩺</span>
-                    <span class="logo-text">Medi<span class="logo-accent">Predict</span> AI</span>
-                </div>
-                <p class="footer-text">AI-Powered Disease Prediction & Doctor Finder</p>
-                <div class="footer-divider"></div>
-                <p class="footer-copyright">© 2026 MediPredict AI. Built with Flask & Machine Learning. Trained on 4,920 samples across 41 diseases.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ═══════════════════════ DISEASE DETAIL MODAL ═══════════════════════ -->
-    <div class="modal-overlay hidden" id="disease-modal">
-        <div class="modal-card">
-            <button class="modal-close" id="modal-close">&times;</button>
-            <div id="modal-content">
-                <!-- Injected by JS -->
+        <!-- Step 3: Results -->
+        <div class="checker-step hidden" id="step-3">
+            <div id="results-container"></div>
+            <div class="step-actions" style="margin-top: 2rem;">
+                <button class="btn btn-ghost" id="back-to-step-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    <span>Modify Inputs</span>
+                </button>
+                <button class="btn btn-primary" id="new-check-btn">
+                    <span>🔄 New Check</span>
+                </button>
             </div>
         </div>
     </div>
+</section>
 
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<!-- ═══════════════════════ DISEASE ENCYCLOPEDIA ═══════════════════════ -->
+<section class="section section-alt" id="encyclopedia">
+    <div class="section-container">
+        <div class="section-header">
+            <span class="section-tag">📚 Knowledge Base</span>
+            <h2 class="section-title">Disease Encyclopedia</h2>
+            <p class="section-subtitle">Browse through our comprehensive database of 41 diseases and conditions</p>
+        </div>
+
+        <div class="search-bar-container">
+            <div class="search-bar">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <input type="text" id="disease-search" class="search-input" placeholder="Search diseases...">
+            </div>
+            <div class="filter-chips" id="category-filters">
+                <button class="chip active" data-category="all">All</button>
+            </div>
+        </div>
+
+        <div class="disease-grid" id="disease-grid">
+            <div class="loading-state" id="disease-loading">
+                <div class="loader"></div>
+                <p>Loading diseases...</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════ DOCTOR FINDER ═══════════════════════ -->
+<section class="section" id="doctor-finder">
+    <div class="section-container">
+        <div class="section-header">
+            <span class="section-tag">📍 Nearby Care</span>
+            <h2 class="section-title">Find Doctors Near You</h2>
+            <p class="section-subtitle">Locate healthcare professionals and specialists in your area</p>
+        </div>
+
+        <div class="doctor-finder-content">
+            <div class="finder-controls">
+                <div class="form-group">
+                    <label class="form-label" for="specialist-select">Select Specialist Type</label>
+                    <select id="specialist-select" class="form-input">
+                        <option value="hospital">🏥 Hospital / General</option>
+                        <option value="general physician">👨‍⚕️ General Physician</option>
+                        <option value="pulmonologist">🫁 Pulmonologist</option>
+                        <option value="cardiologist">❤️ Cardiologist</option>
+                        <option value="neurologist">🧠 Neurologist</option>
+                        <option value="dermatologist">🩹 Dermatologist</option>
+                        <option value="endocrinologist">💉 Endocrinologist</option>
+                        <option value="gastroenterologist">🤢 Gastroenterologist</option>
+                        <option value="hepatologist">🫁 Hepatologist</option>
+                        <option value="orthopedic">🦴 Orthopedic Specialist</option>
+                        <option value="rheumatologist">🦴 Rheumatologist</option>
+                        <option value="ent specialist">👂 ENT Specialist</option>
+                        <option value="urologist">🫘 Urologist</option>
+                        <option value="allergist">🤧 Allergist</option>
+                        <option value="infectious disease">🦠 Infectious Disease</option>
+                        <option value="vascular surgeon">❤️ Vascular Surgeon</option>
+                        <option value="general surgeon">🏥 General Surgeon</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-glow" id="find-doctors-btn">
+                    <span>📍 Find Nearby Doctors</span>
+                </button>
+                <div class="location-info hidden" id="location-info">
+                    <span class="location-dot"></span>
+                    <span id="location-text">Location detected</span>
+                </div>
+            </div>
+
+            <div class="map-container" id="map-container">
+                <div class="map-placeholder" id="map-placeholder">
+                    <div class="map-placeholder-icon">🗺️</div>
+                    <p>Click "Find Nearby Doctors" to locate specialists near you</p>
+                    <span class="map-hint">Uses your browser's location services</span>
+                </div>
+                <iframe id="doctor-map" class="hidden" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════ DISCLAIMER ═══════════════════════ -->
+<section class="disclaimer-section">
+    <div class="section-container">
+        <div class="disclaimer-card">
+            <div class="disclaimer-icon">⚕️</div>
+            <h3>Medical Disclaimer</h3>
+            <p>This tool is for <strong>educational and informational purposes only</strong>. It is NOT a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions regarding a medical condition.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer class="footer">
+    <div class="section-container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo-icon">🩺</span>
+                <span class="logo-text">HealthCare<span class="logo-accent"> AI</span></span>
+            </div>
+            <p class="footer-text">AI-Powered Disease Prediction · Not a substitute for professional medical advice</p>
+            <div class="footer-divider"></div>
+            <p class="footer-copyright">© 2026 MediPredict AI · Built with Flask &amp; Random Forest ML · 4,920 training samples · 41 diseases</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ═══════════════════════ DISEASE DETAIL MODAL ═══════════════════════ -->
+<div class="modal-overlay hidden" id="disease-modal">
+    <div class="modal-card">
+        <button class="modal-close" id="modal-close">&times;</button>
+        <div id="modal-content">
+            <!-- Injected by JS -->
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
+<script>
+// ── CUSTOM CURSOR ──────────────────────────────────────────
+const cursor    = document.getElementById('cursor');
+const ring      = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+});
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button,.disease-card,.symptom-btn,.chip,.symptom-tab').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.width = '6px'; cursor.style.height = '6px'; ring.style.width = '60px'; ring.style.height = '60px'; });
+  el.addEventListener('mouseleave', () => { cursor.style.width = '12px'; cursor.style.height = '12px'; ring.style.width = '40px'; ring.style.height = '40px'; });
+});
+
+// ── SCROLL PROGRESS ────────────────────────────────────────
+const progressBar = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+  const total = document.body.scrollHeight - window.innerHeight;
+  progressBar.style.width = (window.scrollY / total * 100) + '%';
+});
+
+// ── NAVBAR SCROLL STATE ────────────────────────────────────
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── COUNTER ANIMATION ──────────────────────────────────────
+function animCount(el) {
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  let start = 0;
+  const step = ts => {
+    if (!start) start = ts;
+    const p = Math.min((ts - start) / 2000, 1);
+    el.textContent = Math.floor(p * target) + suffix;
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+// ── REVEAL ON SCROLL ───────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      if (e.target.dataset.target) animCount(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('[data-target]').forEach(el => observer.observe(el));
+
+// ── CARD MOUSE GLOW ────────────────────────────────────────
+document.addEventListener('mousemove', e => {
+  document.querySelectorAll('.disease-card').forEach(card => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+    card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+  });
+});
+
+// ── THREE.JS 3D BACKGROUND ─────────────────────────────────
+(function() {
+  const canvas   = document.getElementById('canvas3d');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.z = 5;
+
+  // DNA-like helix
+  const particleCount = 200;
+  const positions = new Float32Array(particleCount * 3);
+  const colors    = new Float32Array(particleCount * 3);
+  for (let i = 0; i < particleCount; i++) {
+    const t = i / particleCount;
+    const angle = t * Math.PI * 12;
+    const r = 2.5, y = (t - 0.5) * 14;
+    if (i % 2 === 0) {
+      positions[i*3]   = Math.cos(angle) * r;
+      positions[i*3+1] = y;
+      positions[i*3+2] = Math.sin(angle) * r - 3;
+      colors[i*3] = 0; colors[i*3+1] = 0.9; colors[i*3+2] = 0.76;
+    } else {
+      positions[i*3]   = Math.cos(angle + Math.PI) * r;
+      positions[i*3+1] = y;
+      positions[i*3+2] = Math.sin(angle + Math.PI) * r - 3;
+      colors[i*3] = 0; colors[i*3+1] = 0.72; colors[i*3+2] = 1;
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geo.setAttribute('color',    new THREE.BufferAttribute(colors, 3));
+  const mat = new THREE.PointsMaterial({ size:0.06, vertexColors:true, transparent:true, opacity:0.7 });
+  const helix = new THREE.Points(geo, mat);
+  helix.position.x = 4;
+  scene.add(helix);
+
+  // Ambient particles
+  const aCount = 300;
+  const aPos = new Float32Array(aCount * 3);
+  for (let i = 0; i < aCount; i++) {
+    aPos[i*3]   = (Math.random() - 0.5) * 20;
+    aPos[i*3+1] = (Math.random() - 0.5) * 20;
+    aPos[i*3+2] = (Math.random() - 0.5) * 10 - 5;
+  }
+  const aGeo = new THREE.BufferGeometry();
+  aGeo.setAttribute('position', new THREE.BufferAttribute(aPos, 3));
+  const aMat = new THREE.PointsMaterial({ size:0.03, color:0x00e5c3, transparent:true, opacity:0.3 });
+  const ambient = new THREE.Points(aGeo, aMat);
+  scene.add(ambient);
+
+  // Torus rings — Moved to edges to avoid overlapping text
+  const tori = [];
+  for (let i = 0; i < 3; i++) {
+    const tGeo  = new THREE.TorusGeometry(1.2 + i * 0.5, 0.01, 8, 60);
+    const tMat  = new THREE.MeshBasicMaterial({ 
+      color: i === 1 ? 0x7c3aed : 0x00e5c3, 
+      transparent:true, 
+      opacity:0.1 - i * 0.02 
+    });
+    const torus = new THREE.Mesh(tGeo, tMat);
+    // Positioned more to the left and further back
+    torus.position.set(-6 + i * 0.8, -2 + i * 0.5, -4);
+    torus.rotation.x = Math.PI / 3 + i * 0.5;
+    scene.add(torus); tori.push(torus);
+  }
+
+  let mouseX3d = 0, mouseY3d = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX3d = (e.clientX / window.innerWidth  - 0.5) * 2;
+    mouseY3d = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  let t3 = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    t3 += 0.005;
+    helix.rotation.y = t3 * 0.3;
+    helix.position.y = Math.sin(t3 * 0.5) * 0.3;
+    ambient.rotation.y = t3 * 0.05;
+    tori.forEach((tor, i) => {
+      tor.rotation.z = t3 * (0.2 + i * 0.1);
+      tor.rotation.x = Math.PI / 3 + Math.sin(t3 * 0.3 + i) * 0.3;
+    });
+    camera.position.x += (mouseX3d * 0.3 - camera.position.x) * 0.05;
+    camera.position.y += (-mouseY3d * 0.2 - camera.position.y) * 0.05;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  });
+})();
+
+// ── NAV ACTIVE STATE ───────────────────────────────────────
+const sections = document.querySelectorAll('section[id]');
+const navLinks2 = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks2.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+});
+
+// ── HERO BUTTONS ───────────────────────────────────────────
+document.getElementById('start-checker-btn').addEventListener('click', () => {
+  document.getElementById('checker').scrollIntoView({ behavior:'smooth' });
+});
+document.getElementById('browse-diseases-btn').addEventListener('click', () => {
+  document.getElementById('encyclopedia').scrollIntoView({ behavior:'smooth' });
+});
+document.getElementById('hero-scroll-indicator').addEventListener('click', () => {
+  document.getElementById('checker').scrollIntoView({ behavior:'smooth' });
+});
+</script>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>

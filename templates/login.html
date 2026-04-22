@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign in to HealthCare AI — AI-powered disease prediction and symptom analysis.">
+    <title>HealthCare AI — Sign In</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+</head>
+<body class="auth-page">
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- AMBIENT ORBS -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<div class="auth-layout">
+
+    <!-- ═══════════ LEFT PANEL ═══════════ -->
+    <div class="auth-panel-left" aria-hidden="true">
+        <div class="panel-glow"></div>
+        <div class="panel-content">
+            <div class="panel-logo">
+                <div class="panel-logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <span class="panel-logo-text">HealthCare<span> AI</span></span>
+            </div>
+
+            <h2 class="panel-headline">AI-Powered<br>Health Insights</h2>
+            <p class="panel-sub">Analyze 132 symptoms, predict conditions, and find the right specialist — all in one place.</p>
+
+            <ul class="panel-features">
+                <li>
+                    <span class="feat-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </span>
+                    Instant AI diagnosis from symptoms
+                </li>
+                <li>
+                    <span class="feat-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </span>
+                    Secure &amp; private — data stays local
+                </li>
+                <li>
+                    <span class="feat-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    </span>
+                    Find doctors near you instantly
+                </li>
+                <li>
+                    <span class="feat-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </span>
+                    100% ML accuracy on 41 diseases
+                </li>
+            </ul>
+
+            <div class="panel-stats">
+                <div class="pstat"><span class="pstat-n">41</span><span class="pstat-l">Diseases</span></div>
+                <div class="pstat-div"></div>
+                <div class="pstat"><span class="pstat-n">132</span><span class="pstat-l">Symptoms</span></div>
+                <div class="pstat-div"></div>
+                <div class="pstat"><span class="pstat-n">100%</span><span class="pstat-l">Accuracy</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ RIGHT PANEL (Form) ═══════════ -->
+    <div class="auth-panel-right">
+        <div class="auth-form-wrap">
+
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="auth-alerts">
+                {% for category, message in messages %}
+                <div class="auth-alert auth-alert-{{ category }}">
+                    {% if category == 'success' %}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    {% else %}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    {% endif %}
+                    <span>{{ message }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <!-- Tabs -->
+            <div class="auth-tabs" role="tablist">
+                <button class="auth-tab {% if mode == 'login' %}active{% endif %}" id="tab-login"
+                        role="tab" aria-selected="{{ 'true' if mode == 'login' else 'false' }}"
+                        onclick="switchTab('login')">Sign In</button>
+                <button class="auth-tab {% if mode == 'register' %}active{% endif %}" id="tab-register"
+                        role="tab" aria-selected="{{ 'true' if mode == 'register' else 'false' }}"
+                        onclick="switchTab('register')">Create Account</button>
+                <span class="tab-slider" id="tab-slider"></span>
+            </div>
+
+            <!-- ── LOGIN FORM ── -->
+            <form class="auth-form {% if mode != 'login' %}hidden{% endif %}" id="form-login"
+                  method="POST" action="{{ url_for('login') }}" novalidate>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div class="field-group">
+                    <label class="field-label" for="login-email">Email Address</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        </span>
+                        <input type="email" id="login-email" name="email"
+                               class="field-input" placeholder="you@example.com"
+                               required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="login-password">Password</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </span>
+                        <input type="password" id="login-password" name="password"
+                               class="field-input" placeholder="Enter your password"
+                               required autocomplete="current-password">
+                        <button type="button" class="field-eye" id="eye-login"
+                                onclick="togglePw('login-password','eye-login')" aria-label="Toggle password">
+                            <svg class="eye-show" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <svg class="eye-hide hidden" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <label class="check-label">
+                        <input type="checkbox" name="remember" class="check-input">
+                        <span class="check-box"></span>
+                        Remember me
+                    </label>
+                </div>
+
+                <button type="submit" class="auth-submit" id="btn-login">
+                    <span class="submit-text">Sign In</span>
+                    <svg class="submit-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span class="submit-spinner hidden"></span>
+                </button>
+
+                <p class="auth-switch">No account yet? <a href="#" onclick="switchTab('register'); return false;">Create one free</a></p>
+            </form>
+
+            <!-- ── REGISTER FORM ── -->
+            <form class="auth-form {% if mode != 'register' %}hidden{% endif %}" id="form-register"
+                  method="POST" action="{{ url_for('register') }}" novalidate>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div class="field-group">
+                    <label class="field-label" for="reg-name">Full Name</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </span>
+                        <input type="text" id="reg-name" name="name"
+                               class="field-input" placeholder="Your full name"
+                               required autocomplete="name">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="reg-email">Email Address</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        </span>
+                        <input type="email" id="reg-email" name="email"
+                               class="field-input" placeholder="you@example.com"
+                               required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="reg-password">
+                        Password
+                        <span class="pw-strength-label" id="pw-strength-label"></span>
+                    </label>
+                    <div class="field-wrap">
+                        <span class="field-icon">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </span>
+                        <input type="password" id="reg-password" name="password"
+                               class="field-input" placeholder="Min 8 characters"
+                               required autocomplete="new-password" minlength="8"
+                               oninput="checkStrength(this.value)">
+                        <button type="button" class="field-eye" id="eye-reg"
+                                onclick="togglePw('reg-password','eye-reg')" aria-label="Toggle password">
+                            <svg class="eye-show" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <svg class="eye-hide hidden" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                        </button>
+                    </div>
+                    <div class="pw-strength-bar" id="pw-strength-bar">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="reg-confirm">Confirm Password</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </span>
+                        <input type="password" id="reg-confirm" name="confirm_password"
+                               class="field-input" placeholder="Repeat your password"
+                               required autocomplete="new-password"
+                               oninput="checkMatch()">
+                    </div>
+                    <span class="field-hint" id="match-hint"></span>
+                </div>
+
+                <button type="submit" class="auth-submit" id="btn-register">
+                    <span class="submit-text">Create Account</span>
+                    <svg class="submit-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span class="submit-spinner hidden"></span>
+                </button>
+
+                <p class="auth-switch">Already have an account? <a href="#" onclick="switchTab('login'); return false;">Sign in</a></p>
+            </form>
+
+            <p class="auth-disclaimer">For educational purposes only — not a substitute for medical advice.</p>
+        </div>
+    </div>
+
+</div><!-- /auth-layout -->
+
+<script>
+// ── CUSTOM CURSOR ──
+const cursor    = document.getElementById('cursor');
+const ring      = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+});
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button,input').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.width = '6px'; cursor.style.height = '6px'; ring.style.width = '60px'; ring.style.height = '60px'; });
+  el.addEventListener('mouseleave', () => { cursor.style.width = '12px'; cursor.style.height = '12px'; ring.style.width = '40px'; ring.style.height = '40px'; });
+});
+
+// ── TAB SWITCHING ──
+function switchTab(tab) {
+    ['login','register'].forEach(t => {
+        document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+        document.getElementById('tab-' + t).setAttribute('aria-selected', t === tab);
+        document.getElementById('form-' + t).classList.toggle('hidden', t !== tab);
+    });
+    moveSlider(tab);
+}
+function moveSlider(tab) {
+    const slider = document.getElementById('tab-slider');
+    const btn    = document.getElementById('tab-' + tab);
+    if (!slider || !btn) return;
+    slider.style.left  = btn.offsetLeft + 'px';
+    slider.style.width = btn.offsetWidth + 'px';
+}
+window.addEventListener('load', () => {
+    const active = document.querySelector('.auth-tab.active');
+    if (active) moveSlider(active.id.replace('tab-',''));
+});
+
+// ── PASSWORD VISIBILITY ──
+function togglePw(inputId, btnId) {
+    const inp  = document.getElementById(inputId);
+    const btn  = document.getElementById(btnId);
+    const show = inp.type === 'password';
+    inp.type   = show ? 'text' : 'password';
+    btn.querySelector('.eye-show').classList.toggle('hidden',  show);
+    btn.querySelector('.eye-hide').classList.toggle('hidden', !show);
+}
+
+// ── PASSWORD STRENGTH ──
+const strengthLabels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+const strengthColors = ['', '#f87171', '#fbbf24', '#fb923c', '#4ade80'];
+
+function checkStrength(val) {
+    let score = 0;
+    if (val.length >= 8)           score++;
+    if (/[A-Z]/.test(val))         score++;
+    if (/[0-9]/.test(val))         score++;
+    if (/[^A-Za-z0-9]/.test(val))  score++;
+    const bars  = document.querySelectorAll('#pw-strength-bar span');
+    const label = document.getElementById('pw-strength-label');
+    bars.forEach((b, i) => {
+        b.style.background = i < score ? strengthColors[score] : '';
+        b.style.opacity    = i < score ? '1' : '0.18';
+    });
+    label.textContent = val.length ? strengthLabels[score] : '';
+    label.style.color = strengthColors[score];
+    checkMatch();
+}
+
+// ── PASSWORD MATCH ──
+function checkMatch() {
+    const pw   = document.getElementById('reg-password').value;
+    const conf = document.getElementById('reg-confirm').value;
+    const hint = document.getElementById('match-hint');
+    if (!conf) { hint.textContent = ''; return; }
+    if (pw === conf) {
+        hint.textContent = '✓ Passwords match';
+        hint.className   = 'field-hint hint-ok';
+    } else {
+        hint.textContent = '✗ Passwords do not match';
+        hint.className   = 'field-hint hint-err';
+    }
+}
+
+// ── SUBMIT LOADING STATE ──
+document.querySelectorAll('.auth-form').forEach(form => {
+    form.addEventListener('submit', function() {
+        const btn = this.querySelector('.auth-submit');
+        btn.querySelector('.submit-text').classList.add('hidden');
+        btn.querySelector('.submit-arrow').classList.add('hidden');
+        btn.querySelector('.submit-spinner').classList.remove('hidden');
+        btn.disabled = true;
+    });
+});
+</script>
+</body>
+</html>

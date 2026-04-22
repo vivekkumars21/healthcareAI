@@ -8,13 +8,79 @@ import sys
 import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session, flash
+from functools import wraps
+import sqlite3
+import hashlib
+import hmac
+import secrets
+import re
 import joblib
 import json
 import numpy as np
 import os
 
 app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY', secrets.token_hex(32))
+
+# ─── Database Setup ─────────────────────────────────────────────
+DB_PATH = os.path.join(os.path.dirname(__file__), 'users.db')
+
+def get_db():
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def init_db():
+    with get_db() as conn:
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS users (
+                id       INTEGER PRIMARY KEY AUTOINCREMENT,
+                name     TEXT    NOT NULL,
+                email    TEXT    NOT NULL UNIQUE,
+                password TEXT    NOT NULL,
+                created  TEXT    NOT NULL DEFAULT (datetime('now'))
+            )
+        ''')
+        conn.commit()
+
+init_db()
+
+# ─── Auth Helpers ───────────────────────────────────────────────
+def hash_password(password: str) -> str:
+    salt = secrets.token_hex(16)
+    hashed = hashlib.pbkdf2_hmac('sha256', password.encode(), salt.encode(), 310_000).hex()
+    return f'{salt}${hashed}'
+
+def check_password(password: str, stored: str) -> bool:
+    try:
+        salt, hashed = stored.split('$', 1)
+    except ValueError:
+        return False
+    candidate = hashlib.pbkdf2_hmac('sha256', password.encode(), salt.encode(), 310_000).hex()
+    return hmac.compare_digest(candidate, hashed)
+
+def generate_csrf() -> str:
+    if '_csrf' not in session:
+        session['_csrf'] = secrets.token_hex(32)
+    return session['_csrf']
+
+def validate_csrf(token) -> bool:
+    return hmac.compare_digest(session.get('_csrf', ''), token or '')
+
+def login_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if 'user_id' not in session:
+            flash('Please sign in to access Healthcare AI.', 'warning')
+            return redirect(url_for('login_page'))
+        return f(*args, **kwargs)
+    return decorated
+
+# Make csrf_token available in all templates
+@app.context_processor
+def inject_csrf():
+    return dict(csrf_token=generate_csrf)
 
 # ─── Load Model & Artifacts ────────────────────────────────────
 MODEL_DIR = "model"
@@ -315,8 +381,99 @@ SEVERITY_CONFIG = {
 }
 
 
-# ─── Routes ─────────────────────────────────────────────────────
+# ─── Auth Routes ────────────────────────────────────────────────
+
+@app.route("/login", methods=["GET"])
+def login_page():
+    if 'user_id' in session:
+        return redirect(url_for('index'))
+    return render_template("login.html", mode="login")
+
+@app.route("/login", methods=["POST"])
+def login():
+    if not validate_csrf(request.form.get('csrf_token')):
+        flash('Invalid request. Please try again.', 'error')
+        return redirect(url_for('login_page'))
+
+    email    = request.form.get('email', '').strip().lower()
+    password = request.form.get('password', '')
+    remember = request.form.get('remember') == 'on'
+
+    if not email or not password:
+        flash('Email and password are required.', 'error')
+        return render_template("login.html", mode="login")
+
+    with get_db() as conn:
+        user = conn.execute('SELECT * FROM users WHERE email = ?', (email,)).fetchone()
+
+    if user is None or not check_password(password, user['password']):
+        flash('Invalid email or password.', 'error')
+        return render_template("login.html", mode="login")
+
+    session.clear()
+    session['user_id']   = user['id']
+    session['user_name'] = user['name']
+    session['user_email'] = user['email']
+    if remember:
+        session.permanent = True
+
+    flash(f'Welcome back, {user["name"]}!', 'success')
+    return redirect(url_for('index'))
+
+
+@app.route("/register", methods=["POST"])
+def register():
+    if not validate_csrf(request.form.get('csrf_token')):
+        flash('Invalid request. Please try again.', 'error')
+        return redirect(url_for('login_page'))
+
+    name             = request.form.get('name', '').strip()
+    email            = request.form.get('email', '').strip().lower()
+    password         = request.form.get('password', '')
+    confirm_password = request.form.get('confirm_password', '')
+
+    # Validation
+    if not name or not email or not password:
+        flash('All fields are required.', 'error')
+        return render_template("login.html", mode="register")
+
+    if not re.match(r'^[^@\s]+@[^@\s]+\.[^@\s]+$', email):
+        flash('Please enter a valid email address.', 'error')
+        return render_template("login.html", mode="register")
+
+    if len(password) < 8:
+        flash('Password must be at least 8 characters.', 'error')
+        return render_template("login.html", mode="register")
+
+    if password != confirm_password:
+        flash('Passwords do not match.', 'error')
+        return render_template("login.html", mode="register")
+
+    try:
+        with get_db() as conn:
+            conn.execute(
+                'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+                (name, email, hash_password(password))
+            )
+            conn.commit()
+    except sqlite3.IntegrityError:
+        flash('An account with this email already exists.', 'error')
+        return render_template("login.html", mode="register")
+
+    flash('Account created! You can now sign in.', 'success')
+    return render_template("login.html", mode="login")
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    flash('You have been signed out.', 'success')
+    return redirect(url_for('login_page'))
+
+
+# ─── Main App Routes ─────────────────────────────────────────────
 @app.route("/")
+@login_required
 def index():
     return render_template("index.html")
 

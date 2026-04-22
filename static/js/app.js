@@ -1,5 +1,5 @@
 /**
- * MediPredict AI — Frontend Application (Enhanced 132-Symptom Version)
+ * HealthCare AI — Frontend Application (Enhanced 132-Symptom Version)
  * Handles SPA navigation, dynamic symptom checker flow, disease encyclopedia, and doctor finder.
  */
 
